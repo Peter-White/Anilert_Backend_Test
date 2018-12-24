@@ -7,5 +7,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="/home/leafcoder/Workspaces/eclipse-ide-workspace/AnilertTest/src/libs/java-json.jar"/>
+	<classpathentry kind="lib" path="/home/leafcoder/Workspaces/eclipse-ide-workspace/AnilertTest/src/libs/sqlite-jdbc-3.23.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
