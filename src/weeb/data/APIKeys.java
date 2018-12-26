@@ -15,11 +15,11 @@ public class APIKeys {
 	
 	
 	private static final String TABLE_API_KEYS = "API_KEYS";
-	private static final String COLUMN_TITLE = "title";
 	private static final String COLUMN_KEY = "key";
 	
 	private static final String GRACENOTE = "OnConnect_API_Key";
 	private static final String GOOGLE_PLACES = "Google_Places_API_Key";
+	private static final String MOVIE_DB = "Movie_DB_API_Key";
 			
 	private static String getAPIKey(String api) {
 		
@@ -42,9 +42,9 @@ public class APIKeys {
 			results.close();
 			statement.close();
 			conn.close();
-			
+		} catch (SQLiteException e) {
+			System.out.println("Connection closed");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -57,5 +57,9 @@ public class APIKeys {
 	
 	public static String getGooglePlacesAPIKey() {
 		return getAPIKey(GOOGLE_PLACES);
+	}
+	
+	public static String getMovieDBAPIKey() {
+		return getAPIKey(MOVIE_DB);
 	}
 }
