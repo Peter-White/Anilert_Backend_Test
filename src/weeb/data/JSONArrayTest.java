@@ -1,10 +1,12 @@
 package weeb.data;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
 public class JSONArrayTest {
 	
@@ -23,14 +25,14 @@ public class JSONArrayTest {
 //	
 	
 //	http://data.tmsapi.com/v1.1/movies/showings?startDate=2018-12-21&numDays=60&zip=02110&lat=42.35222&lng=-71.0552&radius=15&api_key={API_KEY}
-	public static JSONArray getMovieTheaterJSONArray(String zipcode) {
+	public static JSONArray getMovieTheaterJSONArray(String zipcode) throws IOException, JSONException {
 		urlPath = new StringBuilder(graceNoteURLStart);
 		urlPath.append(numDays);
 		urlPath.append("&zip=" + zipcode);
 		urlPath.append("&api_key=");
 		urlPath.append(APIKeys.getGracenoteAPIKey());
-		System.out.println(urlPath.toString());
-		return null;
+
+		return JSONReader.readJsonArrayFromUrl(urlPath.toString());
 	}
 //	
 //	public static JSONArray getMovieTheaterJSONArray(String zipcode, int radius) {
