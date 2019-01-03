@@ -18,34 +18,10 @@ public class JSONObjectTest {
 	 private static StringBuilder urlPath;
 	 private static final String movieDBStart = "https://api.themoviedb.org/3/search/movie?api_key=";
 	 private static URL urlConvert;
-
-	  private static String readAll(Reader rd) throws IOException {
-		    StringBuilder sb = new StringBuilder();
-		    int cp;
-		    while ((cp = rd.read()) != -1) {
-		      sb.append((char) cp);
-		    }
-		    return sb.toString();
-	  }
-	  
-	  
-	
-	  public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
-			URL urlConvert = new URL(url);
-			InputStream is = urlConvert.openStream();
-			try {
-			  BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-			  String jsonText = readAll(rd);
-			  JSONObject json = new JSONObject(jsonText);
-			  return json;
-			} finally {
-			  is.close();
-			}
-	  }
-	  
+	 
 	  public static JSONObject createJSON(String url) throws IOException, JSONException {
 	
-		  JSONObject json = readJsonFromUrl(url);
+		  JSONObject json = JSONReader.readJsonObjectFromUrl(url);
 		  return json;
 		  
 	  }
@@ -63,7 +39,7 @@ public class JSONObjectTest {
 			InputStream is = urlConvert.openStream();
 			InputStreamReader reader = new InputStreamReader(is, Charset.forName("UTF-8"));
 			BufferedReader rd = new BufferedReader(reader);
-			String jsonText = readAll(rd);
+			String jsonText = JSONReader.readJSONData(rd);
 			
 			return new JSONObject(jsonText);
 	  }

@@ -1,18 +1,10 @@
 package weeb.data;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.URL;
-import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 
 public class JSONArrayTest {
 	
@@ -35,6 +27,8 @@ public class JSONArrayTest {
 		urlPath = new StringBuilder(graceNoteURLStart);
 		urlPath.append(numDays);
 		urlPath.append("&zip=" + zipcode);
+		urlPath.append("&api_key=");
+		urlPath.append(APIKeys.getGracenoteAPIKey());
 		System.out.println(urlPath.toString());
 		return null;
 	}
@@ -51,27 +45,10 @@ public class JSONArrayTest {
 //		
 //	}
 	
-	public static JSONArray readJsonFromUrl(String urlPath) throws IOException, JSONException {
-		URL url = new URL(urlPath.toString());
-		InputStream is = url.openStream();
-		BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-		String jsonText = readAll(rd);
-		JSONArray jsonArray = new JSONArray(jsonText);
-		return jsonArray;
-	}
-	
 	public static String currentDate() {
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
 		return df.format(date).toString();
 	}
 	
-	  private static String readAll(Reader rd) throws IOException {
-		    StringBuilder sb = new StringBuilder();
-		    int cp;
-		    while ((cp = rd.read()) != -1) {
-		      sb.append((char) cp);
-		    }
-		    return sb.toString();
-	  }
 }
