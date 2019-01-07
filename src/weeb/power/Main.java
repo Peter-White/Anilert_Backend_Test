@@ -1,6 +1,12 @@
 package weeb.power;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,24 +27,33 @@ public class Main {
 //				e.printStackTrace();
 //			}
 		
+		Map<String, JSONObject> animes = new HashMap<>();
+		
 		try {
 			JSONArray myZip = JSONArrayTest.getMovieTheaterJSONArray("02127");
+			JSONArray myLatLng = JSONArrayTest.getMovieTheaterJSONArray(42.3600825, -71.0588801);
+			JSONArray myZipLatLng = JSONArrayTest.getMovieTheaterJSONArray("02127", 42.3600825, -71.0588801);
+			JSONArray myZipRad = JSONArrayTest.getMovieTheaterJSONArray("02127", 50);
+			JSONArray myLatLngRad = JSONArrayTest.getMovieTheaterJSONArray(42.3600825, -71.0588801, 50);
+			JSONArray myZipLatLngRad = JSONArrayTest.getMovieTheaterJSONArray("02127", 42.3600825, -71.0588801, 50);
 			
-			int descount = 0;
+			JSONArray myLocation = myZip;
+			
 			int count = 0;
-			while (count < myZip.length()) {
+			while (count < myLocation.length()) {
 				
-				JSONObject currentMovie = (JSONObject) myZip.get(count);
-				String title = null;
+				JSONObject currentMovie = (JSONObject) myLocation.get(count);
+				String title = currentMovie.getString("title");
+
 				if(currentMovie.has("animation") && currentMovie.get("animation").equals("anime")) {
-					title = (String) currentMovie.get("title");
+					animes.put(title, currentMovie);
 				}
 				else if(currentMovie.has("genres")) {
 					String genres = currentMovie.get("genres").toString();
 					if(genres.indexOf("Anime") != -1 
 //							|| genres.indexOf("Animated") != -1
 					) {
-						title = (String) currentMovie.get("title");
+						animes.put(title, currentMovie);
 					}
 				}
 				else {
@@ -46,28 +61,27 @@ public class Main {
 					if(currentMovie.has("shortDescription")) {
 						description = (String) currentMovie.get("shortDescription");
 						if(description.indexOf("Anime") != -1 || description.indexOf("anime") != -1) {
-							title = (String) currentMovie.get("title");
+							animes.put(title, currentMovie);
 						}
 					} else if(currentMovie.has("longDescription")) {
 						description = (String) currentMovie.get("longDescription");
 						if(description.indexOf("Anime") != -1 || description.indexOf("anime") != -1) {
-							title = (String) currentMovie.get("title");
+							animes.put(title, currentMovie);
 						}
 					} else {
 						System.out.println(currentMovie.get("title") + " *");
 					}
 				}
 				
-				if(title != null) {
-					System.out.println(title);
-				}
-				
 				count++;
 				
 			}
 			
-			System.out.println(count);
-			System.out.println(descount);
+			for (Entry<String, JSONObject> entry : animes.entrySet()) {
+				System.out.println(entry.getKey());
+				System.out.println(entry.getValue().getJSONArray("showtimes"));
+			}
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (JSONException e) {
