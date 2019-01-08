@@ -26,8 +26,6 @@ public class JSONArrayTest {
 		urlPath.append("&api_key=");
 		urlPath.append(APIKeys.getGracenoteAPIKey());
 		
-		System.out.println(urlPath.toString());
-		
 		return JSONReader.readJsonArrayFromUrl(urlPath.toString());
 	}
 
@@ -41,8 +39,6 @@ public class JSONArrayTest {
 		urlPath.append("&api_key=");
 		urlPath.append(APIKeys.getGracenoteAPIKey());
 		
-		System.out.println(urlPath.toString());
-		
 		return JSONReader.readJsonArrayFromUrl(urlPath.toString());
 	}
 
@@ -53,8 +49,6 @@ public class JSONArrayTest {
 		urlPath.append("&zip=" + zipcode);
 		urlPath.append("&api_key=");
 		urlPath.append(APIKeys.getGracenoteAPIKey());
-		
-		System.out.println(urlPath.toString());
 
 		return JSONReader.readJsonArrayFromUrl(urlPath.toString());
 	}
@@ -68,8 +62,6 @@ public class JSONArrayTest {
 		urlPath.append("&api_key=");
 		urlPath.append(APIKeys.getGracenoteAPIKey());
 		
-		System.out.println(urlPath.toString());
-		
 		return JSONReader.readJsonArrayFromUrl(urlPath.toString());
 	}
 
@@ -81,8 +73,6 @@ public class JSONArrayTest {
 		urlPath.append("&lng=" + lng);
 		urlPath.append("&api_key=");
 		urlPath.append(APIKeys.getGracenoteAPIKey());
-		
-		System.out.println(urlPath.toString());
 		
 		return JSONReader.readJsonArrayFromUrl(urlPath.toString());
 	}
@@ -97,10 +87,18 @@ public class JSONArrayTest {
 		urlPath.append("&api_key=");
 		urlPath.append(APIKeys.getGracenoteAPIKey());
 		
-		System.out.println(urlPath.toString());
-		
 		return JSONReader.readJsonArrayFromUrl(urlPath.toString());
 	}
+	
+//	public static JSONArray testFileJSON() throws IOException, JSONException {
+//		
+//		String path = "/home/Desktop/JSON_Data/gracenote_jsonarray.json";
+//		
+//		JSON
+//		
+//		return JSONReader.readJsonArrayFromUrl(path);
+//		
+//	}
 	
 	public static String currentDate() {
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");

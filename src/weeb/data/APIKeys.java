@@ -13,7 +13,6 @@ public class APIKeys {
 	private static final String DB_NAME = "Anilert.db";
 	private static final String CONNECTION_STRING = "jdbc:sqlite:/home/leafcoder/SQL/" + DB_NAME;
 	
-	
 	private static final String TABLE_API_KEYS = "API_KEYS";
 	private static final String COLUMN_KEY = "key";
 	
