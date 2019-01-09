@@ -23,11 +23,33 @@ public class Main {
 	public static void main(String[] args) {
 
 		try {
-			System.out.println("Enter something:");
-			String myPlace = scanner.nextLine();
-			JSONArray canidates = (JSONArray) JSONObjectTest
-					.getGoogleFindPlaceFromTextJSONObject(myPlace).get("candidates");
-			System.out.println(canidates);
+			Map<Integer, JSONObject> placeCandidates = null;
+			
+			boolean quit = false;
+			while (!quit) {
+				System.out.println("Enter your place (or 'quit' to leave):");
+				String myPlace = scanner.nextLine();
+				if(!myPlace.equals("quit")) {
+					placeCandidates = new HashMap<>();
+					JSONArray canidates = (JSONArray) JSONObjectTest
+							.getGoogleFindPlaceFromTextJSONObject(myPlace).get("candidates");
+					System.out.println("Results:");
+					for (int i = 0; i < canidates.length(); i++) {
+						JSONObject place = (JSONObject) canidates.get(i);
+						System.out.println((i + 1) + ": " + place.getString("formatted_address"));
+						placeCandidates.put(i, place);
+					}
+					
+					System.out.println("Enter your loaction number or 0 is it is not present");
+					int choice = scanner.nextInt();
+					scanner.nextLine();
+					System.out.println(placeCandidates.get(choice - 1));
+					
+				} else {
+					System.out.println("Buh-Bye");
+					quit = true;
+				}
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
