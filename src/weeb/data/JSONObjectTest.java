@@ -35,7 +35,7 @@ public class JSONObjectTest {
 		  	place = place.replaceAll(" ", "%20");
 		  	urlPath = new StringBuilder(googlePlacesStart);
 		  	urlPath.append("input=" + place);
-		  	urlPath.append("&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry");
+		  	urlPath.append("&inputtype=textquery&fields=place_id,photos,formatted_address,name,rating,opening_hours,geometry");
 		  	urlPath.append("&key=" + APIKeys.getGooglePlacesAPIKey());
 		  	
 		  	return JSONReader.readJsonObjectFromUrl(urlPath.toString());
