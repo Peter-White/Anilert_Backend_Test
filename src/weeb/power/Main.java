@@ -43,7 +43,7 @@ public class Main {
 				else if(currentMovie.has("genres")) {
 					String genres = currentMovie.get("genres").toString();
 					if(genres.indexOf("Anime") != -1 
-//							|| genres.indexOf("Animated") != -1
+							|| genres.indexOf("Animated") != -1
 					) {
 						animes.put(title, currentMovie);
 					}
@@ -74,6 +74,7 @@ public class Main {
 			for (Entry<String, JSONObject> entry : animes.entrySet()) {
 				System.out.println(entry.getKey());
 				System.out.println(entry.getValue().getJSONArray("showtimes"));
+				System.out.println();
 			}
 			
 		} catch (IOException e) {

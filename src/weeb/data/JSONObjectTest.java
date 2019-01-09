@@ -18,7 +18,7 @@ public class JSONObjectTest {
 	
 	 private static StringBuilder urlPath;
 	 private static final String movieDBStart = "https://api.themoviedb.org/3/search/multi?api_key=";
-	 public static final String googlePlacesStart = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?";
+	 private static final String googlePlacesStart = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?";
 	 
 	  public static JSONObject getMovieDBSearchJSONObject(String title) throws IOException, JSONException {
 		  	title = title.replaceAll(" ", "%20");
