@@ -46,12 +46,13 @@ public class JSONObjectTest {
 		  
 		  for(int i = 0; i < results.length(); i++) {
 			  JSONObject currentMovie = (JSONObject) results.get(i);
-			  String originalLanguage = currentMovie.getString("original_language");
-			  String genreIds = currentMovie.get("genre_ids").toString();
+			  if(currentMovie.has("original_language")) {
+				 String originalLanguage = currentMovie.getString("original_language"); 
+				 String genreIds = currentMovie.get("genre_ids").toString();
 			  
-			  if(originalLanguage.equals("ja") && genreIds.contains("16")) {
-				  System.out.println(currentMovie);
-				  return true;
+				  if(originalLanguage.equals("ja") && genreIds.contains("16")) {
+					  return true;
+				  }
 			  }
 		  }
 		  
