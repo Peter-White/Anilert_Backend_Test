@@ -25,6 +25,7 @@ public class Main {
 		try {
 			Map<Integer, JSONObject> placeCandidates = null;
 			Map<Integer, JSONObject> animes = null;
+			Map<Integer, JSONObject> showtimes = null;
 			boolean quit = false;
 			while (!quit) {
 				System.out.println("Enter your place (or 'quit' to leave):");
@@ -60,19 +61,22 @@ public class Main {
 									animes = new HashMap<>();
 									JSONArray movies = JSONArrayTest.getMovieTheaterJSONArray(locationData.getDouble("lat"), locationData.getDouble("lng"), radius);
 									int count = 0;
+									int animePlace = 0;
 									while (count < movies.length()) {
 										
 										JSONObject currentMovie = (JSONObject) movies.get(count);
 						
 										if(currentMovie.has("animation") && currentMovie.get("animation").equals("anime")) {
-											animes.put(count, currentMovie);
+											animePlace++;
+											animes.put(animePlace, currentMovie);
 										}
 										else if(currentMovie.has("genres")) {
 											String genres = currentMovie.get("genres").toString();
 											if(genres.indexOf("Anime") != -1 
 //													|| genres.indexOf("Animated") != -1
 											) {
-												animes.put(count, currentMovie);
+												animePlace++;
+												animes.put(animePlace, currentMovie);
 											}
 										}
 										else {
@@ -80,16 +84,19 @@ public class Main {
 											if(currentMovie.has("shortDescription")) {
 												description = (String) currentMovie.get("shortDescription");
 												if(description.indexOf("Anime") != -1 || description.indexOf("anime") != -1) {
-													animes.put(count, currentMovie);
+													animePlace++;
+													animes.put(animePlace, currentMovie);
 												}
 											} else if(currentMovie.has("longDescription")) {
 												description = (String) currentMovie.get("longDescription");
 												if(description.indexOf("Anime") != -1 || description.indexOf("anime") != -1) {
-													animes.put(count, currentMovie);
+													animePlace++;
+													animes.put(animePlace, currentMovie);
 												}
 											} else {
 												if(JSONObjectTest.isAnime(currentMovie.getString("title"))) {
-													animes.put(count, currentMovie);
+													animePlace++;
+													animes.put(animePlace, currentMovie);
 												}
 											}
 										}
@@ -104,7 +111,7 @@ public class Main {
 										while (!backToRadius) {
 											System.out.println("Here are some titles playing near you:");
 											for (Entry<Integer, JSONObject> entry : animes.entrySet()) {
-												System.out.println((entry.getKey() + 1) + ": " + entry.getValue().getString("title"));
+												System.out.println((entry.getKey()) + ": " + entry.getValue().getString("title"));
 											}
 											System.out.println("Choose which one you want to open or hit 0 to got back to location:");
 											int animeChoice = scanner.nextInt();
@@ -112,8 +119,29 @@ public class Main {
 											if(animeChoice == 0) {
 												backToLocation = true;
 												backToMain = true;
-											} else if (animes.containsKey(animeChoice - 1)) {
-												System.out.println(animes.get(animeChoice - 1));
+											} else if (animes.containsKey(animeChoice)) {
+												
+												JSONArray showTimesArray = animes.get(animeChoice).getJSONArray("showtimes");
+												showtimes = new HashMap<>();
+												for (int i = 0; i < showTimesArray.length(); i++) {
+													showtimes.put(i, (JSONObject) showTimesArray.get(i));
+												}
+												
+												boolean backToAnimeSelect = false;
+												while (!backToAnimeSelect) {
+													System.out.println("/n" + animes.get(animeChoice).getString("title") + "/n");
+													System.out.println("/n" + animes.get(animeChoice).getString("title") + "/n");
+													System.out.println("Showtimes:");
+													
+													for (Entry<Integer, JSONObject> show : showtimes.entrySet()) {
+														System.out.println(show.getKey() + ": " + show.getValue().getJSONObject("theatre").getString("name"));
+													}
+													
+													int showTime = scanner.nextInt();
+													scanner.nextLine();
+													
+													
+												}
 											} else {
 												System.out.println("Not applicable. Try again.");
 											}
@@ -147,71 +175,6 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-//		Map<String, JSONObject> animes = new HashMap<>();
-//		
-//		try {
-////			JSONArray myZip = JSONArrayTest.getMovieTheaterJSONArray("02127");
-//			JSONArray myLatLng = JSONArrayTest.getMovieTheaterJSONArray(42.3600825, -71.0588801);
-////			JSONArray myZipLatLng = JSONArrayTest.getMovieTheaterJSONArray("02127", 42.3600825, -71.0588801);
-////			JSONArray myZipRad = JSONArrayTest.getMovieTheaterJSONArray("02127", 50);
-////			JSONArray myLatLngRad = JSONArrayTest.getMovieTheaterJSONArray(42.3600825, -71.0588801, 50);
-////			JSONArray myZipLatLngRad = JSONArrayTest.getMovieTheaterJSONArray("02127", 42.3600825, -71.0588801, 50);
-//			
-//			JSONArray myLocation = myLatLng;
-//			
-//			int count = 0;
-//			while (count < myLocation.length()) {
-//				
-//				JSONObject currentMovie = (JSONObject) myLocation.get(count);
-//				String title = currentMovie.getString("title");
-//
-//				if(currentMovie.has("animation") && currentMovie.get("animation").equals("anime")) {
-//					animes.put(title, currentMovie);
-//				}
-//				else if(currentMovie.has("genres")) {
-//					String genres = currentMovie.get("genres").toString();
-//					if(genres.indexOf("Anime") != -1 
-//							|| genres.indexOf("Animated") != -1
-//					) {
-//						animes.put(title, currentMovie);
-//					}
-//				}
-//				else {
-//					String description = null;
-//					if(currentMovie.has("shortDescription")) {
-//						description = (String) currentMovie.get("shortDescription");
-//						if(description.indexOf("Anime") != -1 || description.indexOf("anime") != -1) {
-//							animes.put(title, currentMovie);
-//						}
-//					} else if(currentMovie.has("longDescription")) {
-//						description = (String) currentMovie.get("longDescription");
-//						if(description.indexOf("Anime") != -1 || description.indexOf("anime") != -1) {
-//							animes.put(title, currentMovie);
-//						}
-//					} else {
-//						if(JSONObjectTest.isAnime(title)) {
-//							animes.put(title, currentMovie);
-//						}
-//					}
-//				}
-//				
-//				count++;
-//				
-//			}
-//			
-//			for (Entry<String, JSONObject> entry : animes.entrySet()) {
-//				System.out.println(entry.getKey());
-//				System.out.println(entry.getValue().getJSONArray("showtimes"));
-//				System.out.println();
-//			}
-//			
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		} catch (JSONException e) {
-//			e.printStackTrace();
-//		}
-//		
 	}
 
 }
