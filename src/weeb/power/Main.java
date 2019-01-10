@@ -1,6 +1,10 @@
 package weeb.power;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -8,7 +12,8 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Map.Entry;
 import java.util.Set;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -129,21 +134,36 @@ public class Main {
 												
 												boolean backToAnimeSelect = false;
 												while (!backToAnimeSelect) {
-													System.out.println("/n" + animes.get(animeChoice).getString("title") + "/n");
-													System.out.println("/n" + animes.get(animeChoice).getString("title") + "/n");
+													System.out.println("\n" + animes.get(animeChoice).getString("title") + "\n");
+													
+													if(animes.get(animeChoice).has("shortDescription")) {
+														System.out.println("\n" + animes.get(animeChoice).getString("shortDescription") + "\n");
+													}
+													
 													System.out.println("Showtimes:");
 													
 													for (Entry<Integer, JSONObject> show : showtimes.entrySet()) {
-														System.out.println(show.getKey() + ": " + show.getValue().getJSONObject("theatre").getString("name"));
+														System.out.println((show.getKey() + 1) + ": " + show.getValue().getJSONObject("theatre").getString("name"));
 													}
 													
+													System.out.println("Get details for show times, 0 to go back:");
 													int showTime = scanner.nextInt();
 													scanner.nextLine();
 													
+													if(showTime == 0) {
+														backToAnimeSelect = true;
+													} else if (showtimes.containsKey(showTime - 1)) {
+														
+//														System.out.println("\n"
+//																+ "Date and Time: " + dateProp + "\n"
+//																+ "Link to purchace: " + showtimes.get(showTime - 1).getString("ticketURI") + "\n");
+													} else {
+														System.out.println("Not acceptable. Try Again.");
+													}
 													
 												}
 											} else {
-												System.out.println("Not applicable. Try again.");
+												System.out.println("Not acceptable. Try Again.");
 											}
 										}
 										
@@ -176,5 +196,5 @@ public class Main {
 			e.printStackTrace();
 		}
 	}
-
+	
 }
