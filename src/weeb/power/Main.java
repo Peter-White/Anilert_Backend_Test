@@ -134,7 +134,7 @@ public class Main {
 												
 												boolean backToAnimeSelect = false;
 												while (!backToAnimeSelect) {
-													System.out.println("\n" + animes.get(animeChoice).getString("title") + "\n");
+													System.out.println("\n" + animes.get(animeChoice).getString("title"));
 													
 													if(animes.get(animeChoice).has("shortDescription")) {
 														System.out.println("\n" + animes.get(animeChoice).getString("shortDescription") + "\n");
@@ -144,23 +144,12 @@ public class Main {
 													
 													for (Entry<Integer, JSONObject> show : showtimes.entrySet()) {
 														System.out.println((show.getKey() + 1) + ": " + show.getValue().getJSONObject("theatre").getString("name"));
+														System.out.println(convertDate(show.getValue().getString("dateTime")));
+														System.out.println(show.getValue().getString("ticketURI"));
+														System.out.println();
 													}
 													
-													System.out.println("Get details for show times, 0 to go back:");
-													int showTime = scanner.nextInt();
-													scanner.nextLine();
-													
-													if(showTime == 0) {
-														backToAnimeSelect = true;
-													} else if (showtimes.containsKey(showTime - 1)) {
-														
-//														System.out.println("\n"
-//																+ "Date and Time: " + dateProp + "\n"
-//																+ "Link to purchace: " + showtimes.get(showTime - 1).getString("ticketURI") + "\n");
-													} else {
-														System.out.println("Not acceptable. Try Again.");
-													}
-													
+													backToAnimeSelect = true;
 												}
 											} else {
 												System.out.println("Not acceptable. Try Again.");
