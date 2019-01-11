@@ -195,6 +195,23 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
 	
+	public static String convertDate(String apiDate) {
+		Pattern regExPattern = Pattern.compile("([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2})");
+		Matcher matcher = regExPattern.matcher(apiDate);
+		Date date = null;
+		while (matcher.find()) {
+			date = new Date();
+			date.setYear(Integer.parseInt(matcher.group(1)) - 1900);
+			date.setMonth(Integer.parseInt(matcher.group(2))-1);
+			date.setDate(Integer.parseInt(matcher.group(3)));
+			date.setHours(Integer.parseInt(matcher.group(4)));
+			date.setMinutes(Integer.parseInt(matcher.group(5)));
+		}
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy hh:mm aaa");
+		return dateFormat.format(date);
+	}
 }
