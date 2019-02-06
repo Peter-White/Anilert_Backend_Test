@@ -3,4 +3,4 @@ A console test application for the backend for the web app in development WeebWa
 returning JSON data from GraceNote for movie results and Google Places for location search.
 
 User enters their location:
-![alt text](https://github.com/Peter-White/Anilert_Backend_Test/blob/master/Anilert_Backend_Test/screenshots/PlaceSearch.png "User Location")
+![alt text](https://github.com/Peter-White/Anilert_Backend_Test/blob/master/screenshots/PlaceSearch.png "User Location")
