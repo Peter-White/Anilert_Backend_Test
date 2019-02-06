@@ -32,6 +32,8 @@ public class Main {
 			Map<Integer, JSONObject> animes = null;
 			Map<Integer, JSONObject> showtimes = null;
 			boolean quit = false;
+			System.out.println("Welcome to first prototype for WeebWatch (formally known as Anilert)");
+			System.out.println();
 			while (!quit) {
 				System.out.println("Enter your place (or 'quit' to leave):");
 				String myPlace = scanner.nextLine();

@@ -38,7 +38,6 @@ public interface JSONReader {
 		} finally {
 			is.close();
 		}
-		
 	}
 	
 	public static String readJSONData(Reader rd) throws IOException {
